@@ -1,0 +1,27 @@
+version: "3.1"
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/application
+      - /application/node_modules
+    ports:
+      - "8080:8080"
+    tty: true
+    stdin_open: true
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/application
+      - /application/node_modules
+    links:
+      - backend
+    ports:
+      - "8085:8085"
+    tty: true
+    stdin_open: true
+
+    # Il n'est pas nécessaire de créer un service de base de données si un service externe est utilisé.
+    # Un service externe a été utilisé : https://cloud.mongodb.com
+
